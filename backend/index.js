@@ -51,6 +51,55 @@
 // })
 
 
+// import express from 'express';
+// import dotenv from 'dotenv';
+// import databaseConnection from './config/database.js';
+// import cookieParser from 'cookie-parser';
+// import userRoute from './routes/userRoute.js';
+// import tweetRoute from './routes/tweetRoute.js';
+// import cors from 'cors';
+
+
+// // Load environment variables
+// dotenv.config({
+//     path: '.env',
+// });
+
+// // Initialize database connection
+// databaseConnection();
+
+// // Initialize Express app
+// const app = express();
+
+
+
+// // Middleware
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(cookieParser());
+
+// // CORS configuration
+// const corsOptions = {
+//     origin: ['http://localhost:5173','https://twitter-ya90.onrender.com'],
+//     credentials: true,
+// };
+
+// app.use(cors(corsOptions));
+
+// // API routes
+// app.use('/api/v1/user', userRoute);
+// app.use('/api/v1/tweet', tweetRoute);
+
+
+
+
+
+// // Start the server
+// app.listen(process.env.PORT, () => {
+//     console.log(`Server is started at port ${process.env.PORT}`);
+// });
+
+
 import express from 'express';
 import dotenv from 'dotenv';
 import databaseConnection from './config/database.js';
@@ -58,7 +107,6 @@ import cookieParser from 'cookie-parser';
 import userRoute from './routes/userRoute.js';
 import tweetRoute from './routes/tweetRoute.js';
 import cors from 'cors';
-import path from 'path';
 
 // Load environment variables
 dotenv.config({
@@ -71,8 +119,6 @@ databaseConnection();
 // Initialize Express app
 const app = express();
 
-
-
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -80,21 +126,18 @@ app.use(cookieParser());
 
 // CORS configuration
 const corsOptions = {
-    origin: 'https://twitter-ya90.onrender.com',
-    credentials: true,
+    origin: ['http://localhost:5173', 'https://heroic-truffle-d3eed8.netlify.app'], // Include frontend's deployed URL
+    credentials: true,  // Allow cookies and credentials
 };
-
 app.use(cors(corsOptions));
 
 // API routes
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/tweet', tweetRoute);
 
-
-
-
-
 // Start the server
-app.listen(process.env.PORT, () => {
-    console.log(`Server is started at port ${process.env.PORT}`);
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+    console.log(`Server is started at port ${port}`);
 });
+
