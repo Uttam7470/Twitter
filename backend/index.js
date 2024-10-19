@@ -126,8 +126,8 @@ app.use(cookieParser());
 
 // CORS configuration
 const corsOptions = {
-    // origin: ['http://localhost:5173', 'https://twitter-rho-blush.vercel.app'], 
-    origin : "http://localhost:5173",
+    // origin:'http://localhost:5173', 'https://twitter-rho-blush.vercel.app'], 
+    origin : process.env.originHost,
     credentials: true,  
 };
 app.use(cors(corsOptions));
