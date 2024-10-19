@@ -126,7 +126,7 @@ app.use(cookieParser());
 
 // CORS configuration
 const corsOptions = {
-    origin: ['http://localhost:5173', 'https://dainty-taiyaki-0b0301.netlify.app'], // Include frontend's deployed URL
+    origin: ['http://localhost:5173', 'https://twitter-rho-blush.vercel.app'], // Include frontend's deployed URL
     credentials: true,  // Allow cookies and credentials
 };
 app.use(cors(corsOptions));
