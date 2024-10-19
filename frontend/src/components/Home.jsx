@@ -1,36 +1,72 @@
-import React from 'react'
-import LeftSidebar from './LeftSidebar'
-import RightSidebar from './RightSidebar'
-import '../index.css'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import useOtherUsers from './hooks/useOtherUsers'
-import useGetMyTweet from './hooks/useGetMyTweet'
+// import React from 'react'
+// import LeftSidebar from './LeftSidebar'
+// import RightSidebar from './RightSidebar'
+// import '../index.css'
+// import { Outlet, useNavigate } from 'react-router-dom'
+// import { useEffect } from 'react'
+// import { useSelector } from 'react-redux'
+// import useOtherUsers from './hooks/useOtherUsers'
+// import useGetMyTweet from './hooks/useGetMyTweet'
 
+
+// function Home() {
+
+//   // Custom Hooks
+
+//   const {user,otherUsers} = useSelector(store=>  store.user)
+//   const navigate = useNavigate();
+//   useEffect(()=>{
+//     if(!user){
+//       navigate('/login')
+//      }
+//   },[])
+ 
+//   useOtherUsers(user?._id);
+//   useGetMyTweet(user?._id);
+
+//   return (
+//     <div className='flex justify-between w-[80%] mx-auto'>
+//         <LeftSidebar />
+//        <Outlet /> 
+//        <RightSidebar otherUsers={otherUsers} /> 
+//     </div>
+//   )
+// }
+
+// export default Home
+
+
+import React, { useEffect } from 'react';
+import LeftSidebar from './LeftSidebar';
+import RightSidebar from './RightSidebar';
+import '../index.css';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import useOtherUsers from './hooks/useOtherUsers';
+import useGetMyTweet from './hooks/useGetMyTweet';
 
 function Home() {
+    // Redux store values
+    const { user, otherUsers } = useSelector((store) => store.user);
+    const navigate = useNavigate();
 
-  // Custom Hooks
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]); // Added user and navigate to the dependency array
 
-  const {user,otherUsers} = useSelector(store=>  store.user)
-  const navigate = useNavigate();
-  useEffect(()=>{
-    if(!user){
-      navigate('/login')
-     }
-  },[])
- 
-  useOtherUsers(user?._id);
-  useGetMyTweet(user?._id);
+    // Custom Hooks
+    useOtherUsers(user?._id);
+    useGetMyTweet(user?._id);
 
-  return (
-    <div className='flex justify-between w-[80%] mx-auto'>
-        <LeftSidebar />
-       <Outlet /> 
-       <RightSidebar otherUsers={otherUsers} /> 
-    </div>
-  )
+    return (
+        <div className='flex justify-between w-[80%] mx-auto'>
+            <LeftSidebar />
+            <Outlet />
+            <RightSidebar otherUsers={otherUsers} />
+        </div>
+    );
 }
 
-export default Home
+export default Home;

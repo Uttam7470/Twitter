@@ -108,37 +108,40 @@ import userRoute from './routes/userRoute.js';
 import tweetRoute from './routes/tweetRoute.js';
 import cors from 'cors';
 
-
+// Load environment variables from .env file
 dotenv.config({
     path: '.env',
 });
 
-
+// Connect to the database
 databaseConnection();
-
 
 const app = express();
 
-
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
 // CORS configuration
 const corsOptions = {
-    // origin:'http://localhost:5173', 'https://twitter-rho-blush.vercel.app'], 
-    origin : process.env.originHost,
-    credentials: true,  
+    origin: process.env.ORIGIN_HOST,  // Ensure the environment variable is correctly defined
+    credentials: true,
 };
 app.use(cors(corsOptions));
 
-
+// Route definitions
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/tweet', tweetRoute);
+
+// Global error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Internal Server Error' });
+});
 
 // Start the server
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Server is started at port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
-
