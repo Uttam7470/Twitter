@@ -108,30 +108,31 @@ import userRoute from './routes/userRoute.js';
 import tweetRoute from './routes/tweetRoute.js';
 import cors from 'cors';
 
-// Load environment variables
+
 dotenv.config({
     path: '.env',
 });
 
-// Initialize database connection
+
 databaseConnection();
 
-// Initialize Express app
+
 const app = express();
 
-// Middleware
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
 // CORS configuration
 const corsOptions = {
-    origin: ['http://localhost:5173', 'https://twitter-rho-blush.vercel.app'], // Include frontend's deployed URL
-    credentials: true,  // Allow cookies and credentials
+    // origin: ['http://localhost:5173', 'https://twitter-rho-blush.vercel.app'], 
+    origin : "http://localhost:5173",
+    credentials: true,  
 };
 app.use(cors(corsOptions));
 
-// API routes
+
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/tweet', tweetRoute);
 
